@@ -3,4 +3,4 @@ COPY . /app
 WORKDIR /app
 RUN yarn install
 
-CMD node /app/index.js
+CMD node /app/src/index.js
