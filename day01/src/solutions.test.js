@@ -1,13 +1,13 @@
 const { getSolutionPart1, getSolutionPart2 } = require('./solutions');
 
 describe(('#getSolutionPart1'), () => {
-  it('3x1 + 107x5 + 269x7 = 2421', () => {
-    expect(getSolutionPart1([0, 3, 4, 42, 106, 107, 267, 269])).toEqual(2421);
+  it('should find increases based on previous number', () => {
+    expect(getSolutionPart1([199, 200, 208, 210, 200, 207, 240, 269, 260, 263])).toEqual(7);
   });
 });
 
 describe(('#getSolutionPart2'), () => {
-  it('0 + 4 - 42 + 106 + 267 = 335', () => {
-    expect(getSolutionPart2([0, 3, 4, 42, 106, 107, 267, 269])).toEqual(335);
+  it('should find increases based on previous sums of three-measurement windows', () => {
+    expect(getSolutionPart2([199, 200, 208, 210, 200, 207, 240, 269, 260, 263])).toEqual(5);
   });
 });
