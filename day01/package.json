@@ -8,9 +8,6 @@
     "test:watch": "jest --watch"
   },
   "devDependencies": {
-    "eslint": "^8.3.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.3",
     "jest": "^27.3.1"
   }
 }
