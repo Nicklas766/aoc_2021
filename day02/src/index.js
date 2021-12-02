@@ -2,7 +2,10 @@ const fs = require('fs/promises');
 const { getSolutionPart1, getSolutionPart2 } = require('./solutions');
 
 const main = async () => {
-  const input = (await fs.readFile('input.txt')).toString().split('\n').map(Number);
+  const input = (await fs.readFile('input.txt')).toString().split('\n').map((line) => {
+    const [command, num] = line.split(' ');
+    return [command, Number(num)]
+  });
 
   if (process.env.part === 'part1') {
     console.log(getSolutionPart1(input));
