@@ -9,9 +9,8 @@ const getLanternfishSpawnAmountAfterDays = (n, inputArray) => {
       spawnDaysToAmount[t] = spawnDaysToAmount[t + 1];
     }
   
-    spawnDaysToAmount[8] = 0;
     spawnDaysToAmount[6] += readyToSpawnAmount;
-    spawnDaysToAmount[8] += readyToSpawnAmount;
+    spawnDaysToAmount[8] = readyToSpawnAmount;
   }
 
   return Object.values(spawnDaysToAmount).reduce((acc, curr) => acc + curr);
