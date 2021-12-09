@@ -29,8 +29,7 @@ const createCollectLocationsForBasin = (heightmap) => {
   return collectLocationsForBasin;
 }
 
-
-const getSolutionPart1 = (heightmap) => {
+const getLowPoints = (heightmap) => {
   const keepValidNumbers = (compareNums) => compareNums.filter(Number.isInteger);
   const isLowPoint = (number, compareNums) => compareNums.filter(x => x > number).length === compareNums.length;
   const foundLowPoints = [];
@@ -48,33 +47,41 @@ const getSolutionPart1 = (heightmap) => {
       const possibleLowPoint = line[column];
 
       if (isLowPoint(possibleLowPoint, checkablePositions)) {
-        foundLowPoints.push(possibleLowPoint);
+        foundLowPoints.push({
+          column,
+          row,
+          val: possibleLowPoint,
+        });
       }
     }
   }
 
-  return foundLowPoints.reduce((prev, curr) => prev + curr + 1, 0);
+  return foundLowPoints;
+}
+
+
+const getSolutionPart1 = (heightmap) => {
+  const lowPoints = getLowPoints(heightmap);
+
+  return lowPoints.reduce((prev, curr) => prev + curr.val + 1, 0);
 }
 
 const getSolutionPart2 = (heightmap) => {
   const collectLocationsForBasin = createCollectLocationsForBasin(heightmap);
+  const lowPoints = getLowPoints(heightmap);
   const foundBasins = [];
-  
-  for (let row = 0; row < heightmap.length; row++) {
-    const line = heightmap[row];
 
-    for (let column = 0; column < line.length; column++) {
-      const locations = collectLocationsForBasin(row, column, []);
+  for (lowPoint of lowPoints) {
+    const locations = collectLocationsForBasin(lowPoint.row, lowPoint.column, []);
 
-      if (locations.length) {
-        foundBasins.push(locations.length);
-      };
-    }
+    if (locations.length) {
+      foundBasins.push(locations.length);
+    };
   }
-
+  
   const highToLow = foundBasins.sort((a, b) => b - a);
   const [max1, max2, max3] = highToLow;
-
+  
   return max1 * max2 * max3;
 };
 
