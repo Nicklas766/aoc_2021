@@ -30,9 +30,9 @@ const createGraph = () => {
   const getUniquePathsAmount = (start, end, onlyAllowOneSmallCave) => {
     let foundPaths = 0;
     
-    const findPaths = (currVertex, destVertex, visited, canVisitSimilarSmallCaveAgain) => {
+    const findPaths = (currVertex, destVertex, visited, cannotVisitSimilarSmallCaveAgain) => {
       const vertex = vertices.get(currVertex);
-      const allowedToVisitSimilarSmallCaveAgain = canVisitSimilarSmallCaveAgain || (visited.has(currVertex) && vertex.small);
+      const disallowedToVisitSimilarSmallCaveAgain = cannotVisitSimilarSmallCaveAgain || (visited.has(currVertex) && vertex.small);
       visited.add(currVertex);
 
       if (currVertex === destVertex) {
@@ -49,10 +49,10 @@ const createGraph = () => {
         const neighbourIsLowerCase = neighbourVertex.small;
         
         const isNotStartOrEnd = neighbour !== 'start' && neighbour !== 'end'; 
-        const canVisitSmallCaveAgain = neighbourIsLowerCase && isNotStartOrEnd && !allowedToVisitSimilarSmallCaveAgain;
+        const canVisitSmallCaveAgain = neighbourIsLowerCase && isNotStartOrEnd && !disallowedToVisitSimilarSmallCaveAgain;
   
         if (neighbourIsUpperCase || canVisitSmallCaveAgain || !visited.has(neighbour)) {
-          findPaths(neighbour, destVertex, new Set(visited), allowedToVisitSimilarSmallCaveAgain);
+          findPaths(neighbour, destVertex, new Set(visited), disallowedToVisitSimilarSmallCaveAgain);
         }
       });
     }
